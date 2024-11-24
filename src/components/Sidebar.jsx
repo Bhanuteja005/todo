@@ -5,15 +5,18 @@ import { logOut } from '../auth';
 export default function Sidebar({ children }) {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logOut();
+  const handleLogout = async () => {
+    console.log("Logging out...");
+    await logOut();
+    console.log("Logged out, navigating to login...");
     navigate('/login', { replace: true });
+    console.log("Navigation to login triggered");
   };
 
   return (
     <aside className="h-screen w-full">
       <nav className="h-full flex-col bg-white border-r shadow-sm">
-        <div className="flex items-center gap-1 p-3" onClick={()=>navigate("/")}>
+        <div className="flex items-center gap-1 p-3" onClick={() => navigate("/")}>
           <BookCheck size={30} />
           <span className="ml-4 font-semibold text-gray-700 text-xl">
             CrakCode
@@ -36,7 +39,6 @@ export default function Sidebar({ children }) {
 }
 
 const checkPath = (path) => {
-  // console.log(location.pathname, path);
   if (path === location.pathname) return true;
   else return false;
 };

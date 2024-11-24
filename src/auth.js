@@ -33,8 +33,16 @@ export const logIn = async (email, password) => {
   }
 };
 
-export const logOut = () => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('token');
-  return Promise.resolve();
+import { signOut } from "firebase/auth";
+
+export const logOut = async () => {
+  try {
+    await signOut(auth);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    return Promise.resolve();
+  } catch (error) {
+    console.error("Failed to log out:", error);
+    return Promise.reject(error);
+  }
 };
